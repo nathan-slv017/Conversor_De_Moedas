@@ -18,23 +18,15 @@ public class Main {
                     7) Sair
                     Escolha uma opção válida:
                     ******************************************************************""");
-
-            try {
                 Scanner leitura = new Scanner(System.in);
                 opcao = leitura.nextInt();
-
                 if (opcao > 7 || opcao < 1) {
                     opcao = 7;
                 }
-
                 if (opcao != 7) {
                     Conversor conversor = new Conversor();
                     conversor.executarConversao(opcao);
                 }
-            } catch (NumberFormatException e) {
-                System.out.println("Aconteceu um erro");
-                System.out.println(e.getMessage());
-            }
         } while (opcao != 7);
         System.out.println("Conversor de Moedas finalizado");
     }
