@@ -17,24 +17,26 @@ public class Conversor {
     public void executarConversao(int opcao) throws IOException, InterruptedException {
         obterTaxasDeConversao();
 
+        ApresentarResultado apresentarResultado = new ApresentarResultado();
+
         switch (opcao) {
             case 1:
-                converterDolarParaPesoArgentino();
+                apresentarResultado.converteGeral(pesoArgentino, true, "Digite o valor em dólares: ", "O valor em pesos argentinos é: ");
                 break;
             case 2:
-                converterPesoArgentinoParaDolar();
+                apresentarResultado.converteGeral(pesoArgentino, false, "Digite o valor em pesos argentinos: ", "O valor em dólares é: ");
                 break;
             case 3:
-                converterDolarParaRealBrasileiro();
+                apresentarResultado.converteGeral(realBrasileiro, true, "Digite o valor em dólares: ", "O valor em reais brasileiros é: ");
                 break;
             case 4:
-                converterRealBrasileiroParaDolar();
+                apresentarResultado.converteGeral(realBrasileiro, false, "Digite o valor em reais brasileiros: ", "O valor em dólares é: ");
                 break;
             case 5:
-                converterDolarParaPesoColombiano();
+                apresentarResultado.converteGeral(pesoColombiano, true, "Digite o valor em dólares: ", "O valor em pesos colombianos é: ");
                 break;
             case 6:
-                converterPesoColombianoParaDolar();
+                apresentarResultado.converteGeral(pesoColombiano, false, "Digite o valor em pesos colombianos: ", "O valor em dólares é: ");
                 break;
         }
     }
@@ -42,7 +44,7 @@ public class Conversor {
     private void obterTaxasDeConversao() throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://v6.exchangerate-api.com/v6/SUAAPIAKI/latest/USD"))
+                .uri(URI.create("https://v6.exchangerate-api.com/v6/SUA_API/latest/USD"))
                 .build();
         HttpResponse<String> response = client
                 .send(request, HttpResponse.BodyHandlers.ofString());
@@ -57,53 +59,5 @@ public class Conversor {
         pesoArgentino = conversionRates.get("ARS").getAsDouble();
         realBrasileiro = conversionRates.get("BRL").getAsDouble();
         pesoColombiano = conversionRates.get("COP").getAsDouble();
-    }
-
-    private void converterDolarParaPesoArgentino() {
-        Scanner leitura = new Scanner(System.in);
-        System.out.println("Digite o valor em dólares: ");
-        double valorEmDolares = leitura.nextDouble();
-        double valorEmPesosArgentino = valorEmDolares * pesoArgentino;
-        System.out.println("O valor em pesos argentinos é: " + valorEmPesosArgentino);
-    }
-
-    private void converterPesoArgentinoParaDolar() {
-        Scanner leitura = new Scanner(System.in);
-        System.out.println("Digite o valor em pesos argentinos: ");
-        double valorEmPesosArgentino = leitura.nextDouble();
-        double valorEmDolares = valorEmPesosArgentino / pesoArgentino;
-        System.out.println("O valor em dólares é: " + valorEmDolares);
-    }
-
-    private void converterDolarParaRealBrasileiro() {
-        Scanner leitura = new Scanner(System.in);
-        System.out.println("Digite o valor em dólares: ");
-        double valorEmDolares = leitura.nextDouble();
-        double valorEmReais = valorEmDolares * realBrasileiro;
-        System.out.println("O valor em reais brasileiros é: " + valorEmReais);
-    }
-
-    private void converterRealBrasileiroParaDolar() {
-        Scanner leitura = new Scanner(System.in);
-        System.out.println("Digite o valor em reais brasileiros: ");
-        double valorEmReais = leitura.nextDouble();
-        double valorEmDolares = valorEmReais / realBrasileiro;
-        System.out.println("O valor em dólares é: " + valorEmDolares);
-    }
-
-    private void converterDolarParaPesoColombiano() {
-        Scanner leitura = new Scanner(System.in);
-        System.out.println("Digite o valor em dólares: ");
-        double valorEmDolares = leitura.nextDouble();
-        double valorEmPesosColombiano = valorEmDolares * pesoColombiano;
-        System.out.println("O valor em pesos colombianos é: " + valorEmPesosColombiano);
-    }
-
-    private void converterPesoColombianoParaDolar() {
-        Scanner leitura = new Scanner(System.in);
-        System.out.println("Digite o valor em pesos colombianos: ");
-        double valorEmPesosColombiano = leitura.nextDouble();
-        double valorEmDolares = valorEmPesosColombiano / pesoColombiano;
-        System.out.println("O valor em dólares é: " + valorEmDolares);
     }
 }
