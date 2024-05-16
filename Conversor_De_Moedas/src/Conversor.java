@@ -44,7 +44,7 @@ public class Conversor {
     private void obterTaxasDeConversao() throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://v6.exchangerate-api.com/v6/1c2471166a928bb511fd7ff4/latest/USD"))
+                .uri(URI.create("https://v6.exchangerate-api.com/v6/SUA_API/latest/USD"))
                 .build();
         HttpResponse<String> response = client
                 .send(request, HttpResponse.BodyHandlers.ofString());
